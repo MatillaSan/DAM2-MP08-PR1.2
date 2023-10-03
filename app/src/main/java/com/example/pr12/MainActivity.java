@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         EditText textBox = findViewById(R.id.textBox);
         TextView textAttemptCount = findViewById(R.id.attempsNumber);
         TextView textNumbersUsed = findViewById(R.id.textNumbersUseds);
-        HorizontalScrollView scrollUsedNumbers = findViewById(R.id.scrollNumbers);
+        ScrollView scrollUsedNumbers = findViewById(R.id.scrollNumbers);
         checkButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -40,9 +40,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(MainActivity.this, "Your number is higher!", Toast.LENGTH_SHORT);
                         toast.show();
                         numberCount++;
-                        numbersUsed += usrNum.toString() + " higher - ";
+                        numbersUsed += usrNum.toString() + " is higher\n";
                         textAttemptCount.setText("Attemps Number: " + numberCount);
-                        textNumbersUsed.setText(numbersUsed + "                   ");
+                        textNumbersUsed.setText(numbersUsed);
+                        // scrollUsedNumbers.scrollTo(scrollUsedNumbers.getRight(), 0);
                         scrollUsedNumbers.fullScroll(ScrollView.FOCUS_RIGHT);
                         textBox.setText("");
 
@@ -50,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(MainActivity.this, "Your number is lower!", Toast.LENGTH_SHORT);
                         toast.show();
                         numberCount++;
-                        numbersUsed += usrNum.toString() + " lower - ";
+                        numbersUsed += usrNum.toString() + " is lower\n";
                         textAttemptCount.setText("Attemps Number: " + numberCount);
-                        textNumbersUsed.setText(numbersUsed + "                   ");
+                        textNumbersUsed.setText(numbersUsed);
                         scrollUsedNumbers.fullScroll(ScrollView.FOCUS_RIGHT);
                         textBox.setText("");
 
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
                                         textAttemptCount.setText("Attemps Number: " + 0);
                                         numbersUsed = "";
                                         textNumbersUsed.setText("");
+                                        textNumbersUsed.refreshDrawableState();
                                     }
                                 })
                                 .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
@@ -83,6 +85,8 @@ public class MainActivity extends AppCompatActivity {
                         dialog.show();
 
                     }
+                } else {
+                    textNumbersUsed.setText("");
                 }
             }
         });
