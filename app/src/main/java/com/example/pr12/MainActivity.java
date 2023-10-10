@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,11 +19,14 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
     Random rand = new Random();
 
-    int numberCount = 0;
+    static int numberCount = 0;
     int winNum = rand.nextInt(100);
     String numbersUsed = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Resetear parametros para nuevo jugador cuando viene del ranking
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         final Button checkButton = findViewById(R.id.checkButton);
@@ -70,6 +74,15 @@ public class MainActivity extends AppCompatActivity {
                                         numbersUsed = "";
                                         textNumbersUsed.setText("");
                                         textNumbersUsed.refreshDrawableState();
+                                    }
+                                })
+                                .setNeutralButton("Ranking View", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        Toast toast = Toast.makeText(MainActivity.this, "Opening ranking view", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                        Intent intent = new Intent(MainActivity.this, RankingView.class);
+                                        startActivity(intent);
                                     }
                                 })
                                 .setNegativeButton("Exit", new DialogInterface.OnClickListener() {
